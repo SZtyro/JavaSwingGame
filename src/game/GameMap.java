@@ -31,6 +31,13 @@ public class GameMap {
 
     FastNoiseLite noise = new FastNoiseLite();
 
+    float[] factors = new float[]{
+        0.5f, 0.5f, 0.5f, 1.0f
+    };
+    float[] offsets = new float[]{
+        0.0f, 0.0f, 0.0f, 0.0f
+    };
+
     GameMap(Window parent) {
         noise.SetSeed((int) (Math.random() * 100000));
         noise.SetNoiseType(FastNoiseLite.NoiseType.ValueCubic);
@@ -62,8 +69,6 @@ public class GameMap {
                 Point worldCord = new Point(x + parent.character.worldPositionX, y + parent.character.worldPositionY);
                 Point displayCord = new Point(x + 10, y + 10);
                 if (!getTile(worldCord).isPresent()) {
-
-                    System.out.println("tworzenie nowego");
 
                     float chance = noise.GetNoise(worldCord.x, worldCord.y);
                     MapTile m;
@@ -100,16 +105,30 @@ public class GameMap {
                     MapTile m = getTile(worldCord).get();
                     m.setDisplayCord(displayCord);
                     m.paintObject(graph);
+
                     //System.out.println("wczytamnie starego");
                 }
 
             }
         }
 
-
     }
 
     public Optional<MapTile> getTile(final Point cord) {
         return tiles.stream().filter(o -> o.cord.equals(cord)).findFirst();
+    }
+
+    public Optional<MapTile> getTileByDisplay(final Point cord) {
+        return tiles.stream().filter(o -> o.getDisplayCord().equals(cord)).findFirst();
+    }
+
+    public void destroyTile(Point cord) {
+
+        Optional<MapTile> t = getTileByDisplay(cord);
+        if (t.isPresent()) {
+            t.get().setCanStep(true);
+            System.out.println("zniszono: " + t.get().isCanStep());
+        }
+
     }
 }

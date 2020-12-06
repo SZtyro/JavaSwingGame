@@ -34,6 +34,11 @@ public class Main extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1216, 1216));
 
         window1.setMinimumSize(new java.awt.Dimension(1216, 1216));
+        window1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                window1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -48,6 +53,11 @@ public class Main extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void window1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_window1MouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_window1MouseClicked
 
     /**
      * @param args the command line arguments

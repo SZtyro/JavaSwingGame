@@ -5,12 +5,14 @@
  */
 package game;
 
+import static com.sun.javafx.iio.ImageStorage.ImageType.RGB;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.awt.image.RescaleOp;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +32,7 @@ public class MapTile {
     int textureY;
 
     int textureWidth = 32;
-    boolean canStep;
+    private boolean canStep;
 
     GameMap parent;
 
@@ -43,7 +45,6 @@ public class MapTile {
         this.displayCord = displayCord;
         this.canStep = canStep;
 
-        System.out.println(displayCord);
     }
 
     public void paintObject(Graphics graph) {
@@ -53,6 +54,11 @@ public class MapTile {
         graphTemp.setColor(Color.BLACK);
         BufferedImage actualFrame;
         actualFrame = parent.texture.getSubimage(textureX * textureWidth, textureY * textureWidth, textureWidth, textureWidth);
+        if (canStep) {
+            
+            RescaleOp op = new RescaleOp(parent.factors, parent.offsets, null);
+             actualFrame = op.filter(actualFrame, null);
+        }
 
         graph2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
@@ -68,4 +74,13 @@ public class MapTile {
     public void setDisplayCord(Point displayCord) {
         this.displayCord = displayCord;
     }
+
+    public boolean isCanStep() {
+        return canStep;
+    }
+
+    public void setCanStep(boolean canStep) {
+        this.canStep = canStep;
+    }
+
 }

@@ -132,7 +132,7 @@ public class Character {
 
     public boolean canStep(int x, int y) {
 
-        return parent.map.getTile(new Point(x, y)).get().canStep;
+        return parent.map.getTile(new Point(x, y)).get().isCanStep();
     }
 
 }

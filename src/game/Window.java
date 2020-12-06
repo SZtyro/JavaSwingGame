@@ -11,8 +11,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
@@ -24,7 +27,7 @@ import javax.swing.Timer;
  *
  * @author fabix
  */
-public class Window extends JComponent implements Serializable, java.awt.event.ActionListener {
+public class Window extends JComponent implements Serializable, java.awt.event.ActionListener, MouseListener {
 
     Character character = new Character(this);
 
@@ -33,7 +36,7 @@ public class Window extends JComponent implements Serializable, java.awt.event.A
     GameMap map;
 
     public Window() {
-
+        addMouseListener(this);
         map = new GameMap(this);
 
         try {
@@ -86,5 +89,30 @@ public class Window extends JComponent implements Serializable, java.awt.event.A
         character.action();
         this.repaint();
 
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        System.out.println(e.getPoint());
+        Point p = e.getPoint();
+        int x = (p.y / 64);
+        int y = (p.x / 64);
+        map.destroyTile(new Point(x, y));
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
     }
 }
