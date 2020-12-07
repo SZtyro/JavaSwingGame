@@ -1,6 +1,6 @@
 Projekt gry na przedmiot Języki Programowania w Multimediach i Internecie napisany przy pomocy Javy oraz biblioteki SWING. Mapa jest generowana z każdym uruchomieniem na podstawie szumu.
 
-#Wymagania
+# Wymagania
 
 1.
 - [x] a)Komponent multimedialny korzystający z zasobów - grafika,dźwięk (zasoby umieszczone w pliku jar).
@@ -17,7 +17,7 @@ Projekt gry na przedmiot Języki Programowania w Multimediach i Internecie napis
 5.
 - [x] Logika aplikacji. Interakcja elementów sceny - kolizje, sterowanie AI. Dodatkowe ciekawe elementy zaimplementowane przez autora.
 
-#Źródła
+# Źródła
 - Dźwięk: 
     - https://www.epidemicsound.com
 - Tekstury:
