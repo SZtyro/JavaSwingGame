@@ -18,8 +18,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 
@@ -32,7 +35,7 @@ public class Window extends JComponent implements Serializable, java.awt.event.A
     Character character = new Character(this);
 
     javax.swing.Timer componentTimer;
-
+    BufferedImage bufferedImage;
     GameMap map;
 
     public Window() {
@@ -41,11 +44,17 @@ public class Window extends JComponent implements Serializable, java.awt.event.A
 
         try {
 
-            componentTimer = new javax.swing.Timer(100, this);
+            componentTimer = new javax.swing.Timer(10, this);
             componentTimer.start();
 
         } catch (Exception ex) {
             System.out.println(ex);
+        }
+        
+        try {
+            bufferedImage = javax.imageio.ImageIO.read(getClass().getResource("resources/dark.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
@@ -77,9 +86,9 @@ public class Window extends JComponent implements Serializable, java.awt.event.A
     @Override
     public void paint(Graphics g) {
         map.paintMap(g);
+        
         character.paintObject(g);
-        g.setFont(new Font(TOOL_TIP_TEXT_KEY, 0, 40));
-        g.drawString(character.worldPositionX + " " + character.worldPositionY, 40, 40);
+        g.drawImage(bufferedImage, 0, 0, this);
         super.paint(g);
     }
 

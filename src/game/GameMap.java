@@ -16,6 +16,11 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import addons.FastNoiseLite;
+import java.io.BufferedInputStream;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  *
@@ -37,6 +42,8 @@ public class GameMap {
     float[] offsets = new float[]{
         0.0f, 0.0f, 0.0f, 0.0f
     };
+    
+    java.io.InputStream wavInputStream;
 
     GameMap(Window parent) {
         noise.SetSeed((int) (Math.random() * 100000));
@@ -48,10 +55,13 @@ public class GameMap {
         this.parent = parent;
 
         try {
-            texture = javax.imageio.ImageIO.read(getClass().getResource("./resources/textures.png"));
+            texture = javax.imageio.ImageIO.read(this.getClass().getResource("resources/textures.png"));
         } catch (IOException ex) {
             Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        
+       
 
     }
 
@@ -127,7 +137,24 @@ public class GameMap {
         Optional<MapTile> t = getTileByDisplay(cord);
         if (t.isPresent()) {
             t.get().setCanStep(true);
-            System.out.println("zniszono: " + t.get().isCanStep());
+
+            try {
+                if(Math.random() > 0.5){
+                    wavInputStream = parent.getClass().getResourceAsStream("resources/rock1.wav");
+                }else{
+                    wavInputStream = parent.getClass().getResourceAsStream("resources/rock2.wav");
+                }
+                 
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(wavInputStream));
+                javax.sound.sampled.Clip acAudioSample;
+
+                acAudioSample = AudioSystem.getClip();
+                acAudioSample.open(audioInputStream);
+                acAudioSample.start();
+
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+                Logger.getLogger(parent.getClass().getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }

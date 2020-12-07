@@ -40,7 +40,7 @@ public class Character {
 
         this.parent = parent;
         try {
-            bufferedImage = javax.imageio.ImageIO.read(getClass().getResource("./resources/character.png"));
+            bufferedImage = javax.imageio.ImageIO.read(this.getClass().getResource("resources/character.png"));
         } catch (IOException ex) {
             Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
         }
