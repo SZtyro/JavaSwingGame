@@ -116,7 +116,6 @@ public class GameMap {
                     m.setDisplayCord(displayCord);
                     m.paintObject(graph);
 
-                    //System.out.println("wczytamnie starego");
                 }
 
             }

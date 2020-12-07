@@ -89,7 +89,6 @@ public class Character {
         String key = String.valueOf(ke.getKeyChar());
         switch (key) {
             case "s":
-                System.out.println(canStep(worldPositionX + 1, worldPositionY));
                 if (canStep(worldPositionX + 1, worldPositionY)) {
                     worldPositionX++;
                 }

@@ -102,7 +102,6 @@ public class Window extends JComponent implements Serializable, java.awt.event.A
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println(e.getPoint());
         Point p = e.getPoint();
         int x = (p.y / 64);
         int y = (p.x / 64);
